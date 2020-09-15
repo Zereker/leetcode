@@ -1,32 +1,24 @@
 package main
 
 func firstUniqChar(s string) int {
-	m := make(map[rune]int, len(s))
-	for _, i := range s {
-		if m[i] == 0 {
-			m[i] += 1
+	var chars [26]int
+
+	for index, char := range s {
+		chars[char-'a'] = index
+	}
+
+	for index, char := range s {
+		if chars[char-'a'] == index {
+			return index
+		} else {
+			chars[char-'a'] = -1
 		}
 	}
 
-	var char rune
-	for r, i := range m {
-		if i == 1 {
-			char = r
-			break
-		}
-	}
-
-
-	for i, i2 := range s {
-		if i2 == char {
-			return i
-		}
-	}
-
-	return 0
+	return -1
 }
 
 func main() {
-	uniqChar := firstUniqChar("leetcode")
+	uniqChar := firstUniqChar("loveleetcode")
 	println(uniqChar)
 }
